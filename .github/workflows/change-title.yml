@@ -19,4 +19,7 @@ jobs:
               repo: context.repo.repo
             });
             const prerelease = releases.data.find(r => r.prerelease);
-            prerelease.title = "Hello"
+            github.repos.updateRelease({
+              name: 'HI'
+            })
+          
