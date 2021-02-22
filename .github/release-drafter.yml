@@ -1,0 +1,20 @@
+name-template: 'Alpha $NEXT_MAJOR_VERSION 🌈'
+tag-template: 'alpha$NEXT_MAJOR_VERSION'
+version-template: '$MAJOR'
+categories:
+  - title: '🚀 Enhancements'
+    labels: ['enhancement']
+  - title: '🐛 Bug Fixes'
+    labels: ['bug']
+  - title: '💬 Story Tasks'
+    labels: ['story', 'story:task']
+  - title: '⚙️ CI/CD Changes'
+    labels: ['ci']
+exclude-labels:
+  - 'skip:changelog'
+  - 'trivial'
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+template: |
+  ## What’s Changed
+
+  $CHANGES

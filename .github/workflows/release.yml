@@ -6,10 +6,10 @@ on:
       - master
 
 jobs:
-  say_hi:
-    name: Say Hi
+  update_release_draft:
+    name: Release Drafter
     runs-on: ubuntu-latest
     steps:
-      - id: buildnumber
-        run: |
-          echo "Hi there"
+      - uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
