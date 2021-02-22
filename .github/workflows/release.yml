@@ -1,0 +1,15 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  say_hi:
+    name: Say Hi
+    runs-on: ubuntu-latest
+    steps:
+      - id: buildnumber
+        run: |
+          echo "Hi there"
