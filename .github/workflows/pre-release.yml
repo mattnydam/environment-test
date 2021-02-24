@@ -1,0 +1,33 @@
+name: Pre-release
+
+on:
+  release:
+    types: [prereleased]
+
+jobs:
+  release:
+    name: Deploy to Production 
+    runs-on: ubuntu-latest
+    outputs:
+      release_url: ${{ steps.get_prerelease.ouptuts.release_url }} 
+      release_id: ${{ steps.get_prerelease.ouptuts.release_id }} 
+    environment: 
+      name: Production
+      url: ${{ steps.get_prelease.outputs.release_url }}
+    steps:
+      - name: Get Pre-release
+        id: get_prerelease
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const releases = await github.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const prerelease = releases.data.find(r => r.prerelease);
+            core.setOutput('release_url' prerelease.url)
+            core.setOutput('release_id' prerelease.id)
+      - name: Deploy
+        id: Deploy
+        run: echo Deployed to ${{ steps.get_prelease.outputs.release_url }}
