@@ -8,12 +8,9 @@ jobs:
   release:
     name: Deploy to Production 
     runs-on: ubuntu-latest
-    outputs:
-      release_url: ${{ steps.get_prerelease.ouptuts.release_url }} 
-      release_id: ${{ steps.get_prerelease.ouptuts.release_id }} 
     environment: 
       name: Production
-      url: ${{ steps.get_prelease.outputs.release_url }}
+      url: ${{ steps.get_prerelease.outputs.release_url }}
     steps:
       - name: Get Pre-release
         id: get_prerelease
@@ -26,8 +23,8 @@ jobs:
               repo: context.repo.repo
             });
             const prerelease = releases.data.find(r => r.prerelease);
-            core.setOutput('release_url' prerelease.url)
-            core.setOutput('release_id' prerelease.id)
+            core.setOutput('release_url', prerelease.url);
+            core.setOutput('release_id', prerelease.id);
       - name: Deploy
         id: Deploy
-        run: echo Deployed to ${{ steps.get_prelease.outputs.release_url }}
+        run: echo Deployed to ${{ steps.get_prerelease.outputs.release_url }} with ID ${{ steps.getprerelease.outputs.release_id }}
