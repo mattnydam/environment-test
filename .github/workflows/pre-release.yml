@@ -18,13 +18,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const releases = await github.repos.listReleases({
+            const release = await github.repos.getRelease({
               owner: context.repo.owner,
-              repo: context.repo.repo
+              repo: context.repo.repo,
+              release_id: ${{ github.event.release.id }}
             });
-            const prerelease = releases.data.find(r => r.prerelease);
-            core.setOutput('release_url', prerelease.url);
-            core.setOutput('release_id', prerelease.id);
+            core.setOutput('release_url', release.html_url);
+            core.setOutput('release_id', release.id);
       - name: Deploy
         id: Deploy
-        run: echo Deployed to ${{ steps.get_prerelease.outputs.release_url }} with ID ${{ steps.getprerelease.outputs.release_id }}
+        run: echo Deployed to ${{ steps.get_prerelease.outputs.release_url }} with ID ${{ steps.get_prerelease.outputs.release_id }}
